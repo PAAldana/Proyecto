@@ -1,0 +1,6 @@
+Medida_FK,UnidadMedida,Tipo,Dimensional,timestamp
+1,UNIDAD,Unidades,u,"2023-04-06 01:26:20"
+2,Kilogramo,Peso,kg,"2023-04-06 01:26:20"
+3,Litro,Volumen,L,"2023-04-06 01:26:20"
+4,gramo,Peso,g,"2023-04-06 01:26:20"
+5,Mililitro,Volumen,ml,"2023-04-06 01:26:20"
