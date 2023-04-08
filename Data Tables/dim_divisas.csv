@@ -1,9 +1,9 @@
-Divisa_FK,Divisa,Abreviatura,Símbolo,timestamp
-8,"Quetzal Guatemalteco",GTQ,Q,"2023-04-05 17:44:03"
-9,"Dólar Estadounidense",USD,$,"2023-04-05 17:44:03"
-10,Euro,EUR,€,"2023-04-05 17:44:03"
-11,"Peso Mexicano",MXN,$,"2023-04-05 17:44:03"
-12,"Peso Filipino",PHP,₱,"2023-04-05 17:44:03"
-13,"Rupia India",INR,₹,"2023-04-05 17:44:03"
-14,Bolívar,VED,Bs,"2023-04-05 17:44:03"
-15,"Peso Argentino",ARP,$a,"2023-04-05 17:44:03"
+Divisa_FK;Divisa;Abreviatura;Símbolo;timestamp
+8;"Quetzal Guatemalteco";GTQ;Q;"2023-04-05 17:44:03"
+9;"Dólar Estadounidense";USD;$;"2023-04-05 17:44:03"
+10;Euro;EUR;€;"2023-04-05 17:44:03"
+11;"Peso Mexicano";MXN;$;"2023-04-05 17:44:03"
+12;"Peso Filipino";PHP;₱;"2023-04-05 17:44:03"
+13;"Rupia India";INR;₹;"2023-04-05 17:44:03"
+14;Bolívar;VED;Bs;"2023-04-05 17:44:03"
+15;"Peso Argentino";ARP;$a;"2023-04-05 17:44:03"

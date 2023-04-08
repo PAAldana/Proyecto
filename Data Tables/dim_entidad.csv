@@ -1,4 +1,4 @@
-Entidad_FK,Nombre,Tipo,Sub_Tipo,Unidad_Compradora,timestamp
-1,"MINISTERIO DE SALUD PÃšBLICA","AdministraciÃ³n Central",NULL,NULL,"2023-04-06 01:09:14"
-2,"MINISTERIO DE FINANZAS PÃšBLICAS","AdministraciÃ³n Central",NULL,NULL,"2023-04-06 01:09:14"
-3,"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -I","AdministraciÃ³n Central",NULL,NULL,"2023-04-06 01:09:14"
+"Entidad_FK";"Nombre";"Tipo";"Sub_Tipo";"Unidad_Compradora";"timestamp"
+1;"MINISTERIO DE SALUD PÚBLICA";"Administración Central";"";"";"2023-04-06 01:09:14"
+2;"MINISTERIO DE FINANZAS PÚBLICAS";"Administración Central";"";"";"2023-04-06 01:09:14"
+3;"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -I";"Administración Central";"";"";"2023-04-06 01:09:14"
