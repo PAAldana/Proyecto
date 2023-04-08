@@ -1,0 +1,68 @@
+Clave de acceso secreta
+EqUuIG5K8lQPE8fL4kQ+mhTo1xyZCO33t7srrPJV
+
+Clave de acceso
+AKIASCUTT2LGXMWRR2HC
+
+Enlace de inicio de sesión en la consola
+https://143117243085.signin.aws.amazon.com/console
+
+marlon-seccion-u
+contraseña: W?bas.270
+
+
+banco-db
+Base de Datos creada en AWS
+User: admin_1
+Pass: W?bas.70
+
+------------------------------------------------------------
+Nueva access key
+
+Acces key
+AKIASCUTT2LG5ADKDTYM
+
+Secret acces key
+N2W6Su5+WLYk+BwWuO/209oTuavk9p7gTD6/+dHy
+
+--------------------------------------------------------------------
+creacion nuevo usuario en AWS
+14/03/2023
+*ID: 143117243085
+*URL:  https://143117243085.signin.aws.amazon.com/console
+*usuario: papd
+*Contraseña para la consola
++9[d-vm>.X5e5Cme
+
+
+Access Key
+AKIASCUTT2LGQ4VJHNPX
+
+Security acces key
+4ltNfimGEHflA0sAp/XNr97w7SBH1Dd+V8wVuRkt
+
+
+BASE DE DATOS
+data base: banco
+nombre: banco-db
+usuario: banco_admin
+password: +9[d-vm>.X5e5Cme
+
+
+Usuario MySQL
+Database: Banco
+Usuario : banco_admin
+Password: +9[d-vm>.X5e5Cme
+
+
+
+
+
+
+
+
+
+
+
+
+
