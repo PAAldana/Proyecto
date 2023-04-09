@@ -1,11 +1,11 @@
 create_pr_dw = '''
 
 
--- Table DIM_Productos
+-- Table dim_productos
 
-DROP TABLE IF EXISTS DIM_Productos CASCADE;
+DROP TABLE IF EXISTS dim_productos CASCADE;
 
-CREATE TABLE IF NOT EXISTS DIM_Productos (
+CREATE TABLE IF NOT EXISTS dim_productos (
 Producto_FK SERIAL PRIMARY KEY,
 Cod_INE VARCHAR(45) NOT NULL,
 Nombre VARCHAR(255) NOT NULL,
@@ -14,13 +14,13 @@ timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT Cod_INE_UNIQUE UNIQUE (Cod_INE)
 );
 
--- Table DIM_Proveedor
+-- Table dim_proveedor
 
-DROP TABLE IF EXISTS DIM_Proveedor CASCADE;
+DROP TABLE IF EXISTS dim_proveedor CASCADE;
 
-CREATE TABLE IF NOT EXISTS DIM_Proveedor (
+CREATE TABLE IF NOT EXISTS dim_proveedor (
 Proveedor_FK SERIAL PRIMARY KEY,
-NIT INTEGER NOT NULL,
+NIT VARCHAR(10) NOT NULL,
 Nombre VARCHAR(255) NOT NULL,
 Direccion VARCHAR(255),
 "Teléfono" VARCHAR(45),
@@ -31,57 +31,57 @@ timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT NIT_UNIQUE UNIQUE (NIT)
 );
 
--- Table DIM_Fuente
+-- Table dim_fuente
 
-DROP TABLE IF EXISTS DIM_Fuente CASCADE;
+DROP TABLE IF EXISTS dim_fuente CASCADE;
 
-CREATE TABLE IF NOT EXISTS DIM_Fuente (
+CREATE TABLE IF NOT EXISTS dim_fuente (
 Fuente_FK SERIAL PRIMARY KEY,
 FuenteDatos VARCHAR(45) NOT NULL,
-timestamp TIMESTAMP DEFAULT NULL
+timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Table DIM_Rubro
 
-DROP TABLE IF EXISTS DIM_Rubro CASCADE;
+DROP TABLE IF EXISTS dim_rubro CASCADE;
 
 CREATE TABLE IF NOT EXISTS DIM_Rubro (
 Rubro_FK SERIAL PRIMARY KEY,
-Rubro VARCHAR(45) NOT NULL,
-timestamp TIMESTAMP DEFAULT NULL
+Rubro VARCHAR(100) NOT NULL,
+timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table DIM_Medida
+-- Table dim_medida
 
-DROP TABLE IF EXISTS DIM_Medida CASCADE;
+DROP TABLE IF EXISTS dim_medida CASCADE;
 
-CREATE TABLE IF NOT EXISTS DIM_Medida (
+CREATE TABLE IF NOT EXISTS dim_medida (
 Medida_FK SERIAL PRIMARY KEY,
 UnidadMedida VARCHAR(45) NOT NULL,
 Tipo VARCHAR(45) NOT NULL,
 Dimensional VARCHAR(10),
-timestamp TIMESTAMP DEFAULT NULL
+timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table DIM_Entidad
+-- Table dim_entidad
 
-DROP TABLE IF EXISTS DIM_Entidad CASCADE;
+DROP TABLE IF EXISTS dim_entidad CASCADE;
 
-CREATE TABLE IF NOT EXISTS DIM_Entidad (
+CREATE TABLE IF NOT EXISTS dim_entidad (
 Entidad_FK SERIAL PRIMARY KEY,
 Nombre VARCHAR(45) NOT NULL,
 Tipo VARCHAR(45),
 Sub_Tipo VARCHAR(45),
 Unidad_Compradora VARCHAR(45),
-timestamp TIMESTAMP DEFAULT NULL
+timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table DIM_Date
+-- Table dim_date
 
-DROP TABLE IF EXISTS DIM_Date CASCADE;
+DROP TABLE IF EXISTS dim_date CASCADE;
 
-CREATE TABLE IF NOT EXISTS DIM_Date (
-Date_key SERIAL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS dim_date (
+Date_key INTEGER PRIMARY KEY,
 Fecha DATE,
 Mes VARCHAR(45),
 Año INTEGER,
@@ -89,33 +89,33 @@ Mes_Año VARCHAR(45),
 "Fecha +40d" DATE
 );
 
--- Table DIM_Adquisicion
+-- Table dim_adquisicion
 
-DROP TABLE IF EXISTS DIM_Adquisicion CASCADE;
+DROP TABLE IF EXISTS dim_adquisicion CASCADE;
 
-CREATE TABLE IF NOT EXISTS DIM_Adquisicion (
+CREATE TABLE IF NOT EXISTS dim_adquisicion (
 Adquisicion_FK SERIAL PRIMARY KEY,
 Tipo_Adquisicion VARCHAR(45) NOT NULL,
-timestamp TIMESTAMP NOT NULL DEFAULT now()
+timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table DIM_Divisas
+-- Table dim_divisas
 
-DROP TABLE IF EXISTS DIM_Divisas CASCADE;
+DROP TABLE IF EXISTS dim_divisas CASCADE;
 
-CREATE TABLE IF NOT EXISTS DIM_Divisas (
+CREATE TABLE IF NOT EXISTS dim_divisas (
 Divisa_FK SERIAL PRIMARY KEY,
 Divisa VARCHAR(45),
 Abreviatura VARCHAR(5),
 "Símbolo" VARCHAR(5),
-timestamp TIMESTAMP DEFAULT now()
+timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table FACT_Precio
+-- Table fact_precio
 
-DROP TABLE IF EXISTS FACT_Precio CASCADE;
+DROP TABLE IF EXISTS fact_precio CASCADE;
 
-CREATE TABLE IF NOT EXISTS FACT_Precio (
+CREATE TABLE IF NOT EXISTS fact_precio (
 Precio_ID SERIAL,
 Producto_FK INT NOT NULL,
 Proveedor_FK INT NOT NULL,
@@ -123,51 +123,57 @@ Fuente_FK INT NOT NULL,
 Medida_FK INT NOT NULL,
 Date_key INT NOT NULL,
 Divisa_FK INT NOT NULL,
-Precio DECIMAL(10) NOT NULL,
+Precio DECIMAL(10,2) NOT NULL,
 Marca VARCHAR(45),
 Pais VARCHAR(45),
 NOG VARCHAR(45),
 Responsable VARCHAR(45),
 Observaciones TEXT,
-timestamp TIMESTAMP NOT NULL DEFAULT now(),
+timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (Precio_ID, Producto_FK, Proveedor_FK, Fuente_FK, Medida_FK),
 CONSTRAINT ProductoPrecio
 FOREIGN KEY (Producto_FK)
-REFERENCES DIM_Productos (Producto_FK)
+REFERENCES dim_productos (Producto_FK)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION,
 CONSTRAINT ProveedorPrecio
 FOREIGN KEY (Proveedor_FK)
-REFERENCES DIM_Proveedor (Proveedor_FK)
+REFERENCES dim_proveedor (Proveedor_FK)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION,
 CONSTRAINT FuentePrecio
 FOREIGN KEY (Fuente_FK)
-REFERENCES DIM_Fuente (Fuente_FK)
+REFERENCES dim_fuente (Fuente_FK)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION,
 CONSTRAINT MedidaPrecio
 FOREIGN KEY (Medida_FK)
-REFERENCES DIM_Medida (Medida_FK)
+REFERENCES dim_medida (Medida_FK)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION,
 CONSTRAINT FechaPrecio
 FOREIGN KEY (Date_key)
-REFERENCES DIM_Date (Date_key)
+REFERENCES dim_date (Date_key)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION,
 CONSTRAINT DivisaPrecio
 FOREIGN KEY (Divisa_FK)
-REFERENCES DIM_Divisas (Divisa_FK)
+REFERENCES dim_divisas (Divisa_FK)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 );
 
--- Table DIM_Evento
+CREATE INDEX ProductoPrecio_idx ON fact_precio (Producto_FK);
+CREATE INDEX PrveedorPrecio_idx ON fact_precio (Proveedor_FK);
+CREATE INDEX FuentePrecio_idx ON fact_precio (Fuente_FK);
+CREATE INDEX FechaPrecio_idx ON fact_precio (Date_key);
+CREATE INDEX DivisaPrecio_idx ON fact_precio (Divisa_FK);
 
-DROP TABLE IF EXISTS DIM_Evento CASCADE;
+-- Table dim_evento
 
-CREATE TABLE IF NOT EXISTS DIM_Evento (
+DROP TABLE IF EXISTS dim_evento CASCADE;
+
+CREATE TABLE IF NOT EXISTS dim_evento (
 Evento_FK INT NOT NULL,
 NOG INT NOT NULL,
 Nombre VARCHAR(255) NULL,
@@ -178,24 +184,24 @@ Date_Key INT NOT NULL,
 PRIMARY KEY (Evento_FK),
 CONSTRAINT Date_Evento
 FOREIGN KEY (Date_Key)
-REFERENCES DIM_Date(Date_key)
+REFERENCES dim_date(Date_key)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION,
 CONSTRAINT Entidad_Evento
 FOREIGN KEY (Entidad)
-REFERENCES DIM_Entidad(Entidad_FK)
+REFERENCES dim_entidad(Entidad_FK)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION,
 CONSTRAINT Adquisicion_Evento
 FOREIGN KEY (Adquisición_FK)
-REFERENCES DIM_Adquisicion(Adquisicion_FK)
+REFERENCES dim_adquisicion(Adquisicion_FK)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 );
 
-CREATE INDEX Date_Evento_idx ON DIM_Evento (Date_Key);
-CREATE INDEX Entidad_Evento_idx ON DIM_Evento (Entidad);
-CREATE INDEX Adquisicion_Evento_idx ON DIM_Evento (Adquisición_FK);
+CREATE INDEX Date_Evento_idx ON dim_evento (Date_Key);
+CREATE INDEX Entidad_Evento_idx ON dim_evento (Entidad);
+CREATE INDEX Adquisicion_Evento_idx ON dim_evento (Adquisición_FK);
 
 -- Table FACT_Catalogo
 
